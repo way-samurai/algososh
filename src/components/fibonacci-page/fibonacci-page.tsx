@@ -3,30 +3,35 @@ import styles from "./fibonacci-page.module.css";
 import { Button } from "../ui/button/button";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
-import { MAXLENGTH, MINVALUE } from "./utils";
+import { getFibArray, MAXLENGTH, MINVALUE } from "./utils";
+import { Circle } from "../ui/circle/circle";
+import { pause } from "../../utils";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export const FibonacciPage: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [isLoader, setIsLoader] = useState<boolean>(false);
-  const [arrFib, setArrFib] = useState<number[]>()
-  
+  const [fibArr, setFibArr] = useState<number[]>([]);
+
   const buttonValidation = MINVALUE <= parseInt(inputValue, 10) ? false : true;
 
-  const fib = (n: number): number => {
-    if (n <= 2) {
-      return 1
+  const renderFibArr = async (inputValue: string) => {
+    const fibArr = getFibArray(inputValue);
+    const renderFibArr = [];
+    for (let i = 0; i <= fibArr.length - 1; i++) {
+      await pause(SHORT_DELAY_IN_MS);
+      renderFibArr.push(fibArr[i]);
+      setFibArr([...renderFibArr]);
     }
-    return fib(n - 2) + fib(n-1);
-  }
+  };
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {
     let string = e.currentTarget.value.replace(/[^0-9]/g, "");
-    console.log(string)
     const parseString = parseInt(string, 10);
     if (parseString > 19) {
-      string = "19"
+      string = "19";
     } else if (parseString <= 0) {
-      string = "1"
+      string = "";
     }
     setInputValue(string);
   };
@@ -35,9 +40,11 @@ export const FibonacciPage: React.FC = () => {
     e: FormEvent<HTMLFormElement> | FormEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    const arrN = inputValue.split('');
-    console.log(arrN)
+    setFibArr([]);
+    setIsLoader(true);
+    renderFibArr(inputValue);
     setInputValue("");
+    setIsLoader(false);
   };
 
   return (
@@ -58,6 +65,12 @@ export const FibonacciPage: React.FC = () => {
           text="Развернуть"
         />
       </form>
+      <ul className={styles.list}>
+        {fibArr &&
+          fibArr.map((item: number, index: number) => {
+            return <Circle key={index} letter={`${item}`} index={index} />;
+          })}
+      </ul>
     </SolutionLayout>
   );
 };
