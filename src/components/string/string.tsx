@@ -48,7 +48,7 @@ export const StringComponent: React.FC = () => {
 
   return (
     <SolutionLayout title="Строка">
-      <form className={styles.form}>как запретить ввод символов кроме чисел с клавиатуры js
+      <form className={styles.form}>
         <Input
           onChange={onChange}
           disabled={isLoader}
