@@ -38,7 +38,7 @@ export const StringComponent: React.FC = () => {
     setInputValue(string);
   };
 
-  const onClickRevers = (
+  const onClick = (
     e: FormEvent<HTMLFormElement> | FormEvent<HTMLButtonElement>
   ): void => {
     e.preventDefault();
@@ -58,7 +58,7 @@ export const StringComponent: React.FC = () => {
           extraClass="mr-6"
         />
         <Button
-          onClick={onClickRevers}
+          onClick={onClick}
           disabled={!inputValue}
           isLoader={isLoader}
           text="Развернуть"
