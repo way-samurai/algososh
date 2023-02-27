@@ -6,12 +6,17 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { MAXLENGTH } from "./utils";
 
 export const FibonacciPage: React.FC = () => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string | number>("");
   const [isLoader, setIsLoader] = useState<boolean>(false);
+  const [arrFib, setArrFib] = useState<number[]>()
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {
-    const string = e.currentTarget.value;
-    setInputValue(string);
+    let string = e.currentTarget.value;
+    const parseString = parseInt(string, 10);
+    if (parseString > 19) {
+      string = "19"
+    }
+    setInputValue(string.replace(/[^a-zA-Z\d]/ig, ""));
   };
 
   const onClick = (
@@ -34,7 +39,7 @@ export const FibonacciPage: React.FC = () => {
           extraClass="mr-6"
         />
         <Button
-          //onClick={onClick}
+          onClick={onClick}
           disabled={!inputValue}
           isLoader={isLoader}
           text="Развернуть"
