@@ -16,7 +16,7 @@ export const FibonacciPage: React.FC = () => {
     if (parseString > 19) {
       string = "19"
     }
-    setInputValue(string.replace(/[^a-zA-Z\d]/ig, ""));
+    setInputValue("");
   };
 
   const onClick = (
