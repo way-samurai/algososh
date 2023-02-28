@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styles from "./sorting-page.module.css";
 import { RadioInput } from "../ui/radio-input/radio-input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
@@ -10,7 +10,21 @@ import { TRandomArr } from "../../types/sorting-page";
 
 export const SortingPage: React.FC = () => {
   const [isLoader, setIsLoader] = useState<string>(initial);
+  const [radioOption, setRadioOption] = useState<string>("selection-sort");
   const [randomArr, setRandomArr] = useState<TRandomArr[]>();
+
+  const onChangeRadio = (e: ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+    setRadioOption((e.target as HTMLInputElement).value);
+  };
+
+  const onClickCreateArr = () => {};
+
+  const onClickSortArr = (direction: string) => {};
+
+  useEffect(() => {
+    //
+  }, []);
 
   return (
     <SolutionLayout title="Сортировка массива">
@@ -23,14 +37,14 @@ export const SortingPage: React.FC = () => {
             value={"selection-sort"}
             defaultChecked
             extraClass="mr-20"
-            //onChange={onChangeRadio}
+            onChange={onChangeRadio}
           />
           <RadioInput
             disabled={isLoader === desc || isLoader === asc}
             label="Пузырек"
             name={"sorting-type"}
             value={"bubble-sort"}
-            //onChange={onChangeRadio}
+            onChange={onChangeRadio}
           />
         </div>
         <div className={styles.group}>
@@ -38,7 +52,7 @@ export const SortingPage: React.FC = () => {
             isLoader={isLoader === asc}
             disabled={isLoader === desc}
             text="По возрастанию"
-            //onClick={() => onClickSort(asc)}
+            onClick={() => onClickSortArr(asc)}
             sorting={Direction.Ascending}
             extraClass="mr-6"
           />
@@ -46,19 +60,20 @@ export const SortingPage: React.FC = () => {
             isLoader={isLoader === desc}
             disabled={isLoader === asc}
             text="По убыванию"
-            //onClick={() => onClickSort(desc)}
+            onClick={() => onClickSortArr(desc)}
             sorting={Direction.Descending}
             extraClass="mr-40"
           />
           <Button
             disabled={isLoader !== array && isLoader !== initial}
             text="Новый массив"
-            //onClick={onClickNewArr}
+            onClick={onClickCreateArr}
           />
         </div>
       </form>
       <ul className={styles.list}>
-        {randomArr && randomArr.length > 0 &&
+        {randomArr &&
+          randomArr.length > 0 &&
           randomArr.map(
             (element: TRandomArr, index: number, state: TRandomArr[]) => {
               return (
