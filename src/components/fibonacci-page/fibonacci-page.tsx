@@ -23,6 +23,7 @@ export const FibonacciPage: React.FC = () => {
       renderFibArr.push(fibArr[i]);
       setFibArr([...renderFibArr]);
     }
+    setIsLoader(false);
   };
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {
@@ -40,11 +41,10 @@ export const FibonacciPage: React.FC = () => {
     e: FormEvent<HTMLFormElement> | FormEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    setFibArr([]);
     setIsLoader(true);
+    setFibArr([]);
     renderFibArr(inputValue);
     setInputValue("");
-    setIsLoader(false);
   };
 
   return (
