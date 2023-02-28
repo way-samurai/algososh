@@ -4,26 +4,35 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { Direction } from "../../types/direction";
-import { array, asc, desc, initial } from "./utils";
+import { array, asc, desc, generateRandomArray, initial, MAXLENGTH, MAXVALUE, MINLENGTH } from "./utils";
 import { Column } from "../ui/column/column";
 import { TRandomArr } from "../../types/sorting-page";
 
 export const SortingPage: React.FC = () => {
   const [isLoader, setIsLoader] = useState<string>(initial);
-  const [radioOption, setRadioOption] = useState<string>("selection-sort");
-  const [randomArr, setRandomArr] = useState<TRandomArr[]>();
+  const [sortingMethod, setSortingMethod] = useState<string>("selection-sort");
+  const [randomArr, setRandomArr] = useState<TRandomArr[]>([]);
+
+  function renderRandomArr (): void {
+    const arrColumns = generateRandomArray(MAXLENGTH, MINLENGTH, MAXVALUE);
+    setRandomArr(arrColumns);
+  }
 
   const onChangeRadio = (e: ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    setRadioOption((e.target as HTMLInputElement).value);
+    setSortingMethod((e.target as HTMLInputElement).value);
   };
 
-  const onClickCreateArr = () => {};
+  const onClickCreateArr = () => {
+    renderRandomArr()
+  };
 
-  const onClickSortArr = (direction: string) => {};
+  const onClickSortArr = (direction: string) => {
+    
+  };
 
   useEffect(() => {
-    //
+    renderRandomArr()
   }, []);
 
   return (
@@ -37,14 +46,14 @@ export const SortingPage: React.FC = () => {
             value={"selection-sort"}
             defaultChecked
             extraClass="mr-20"
-            onChange={onChangeRadio}
+            onChange={() => onChangeRadio}
           />
           <RadioInput
             disabled={isLoader === desc || isLoader === asc}
             label="Пузырек"
             name={"sorting-type"}
             value={"bubble-sort"}
-            onChange={onChangeRadio}
+            onChange={() => onChangeRadio}
           />
         </div>
         <div className={styles.group}>
