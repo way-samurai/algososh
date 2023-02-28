@@ -1,8 +1,34 @@
 .form {
-    max-width: 522px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+  max-width: 944px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.radioInputs {
+  display: flex;
+  max-width: 220px;
+  width: 100%;
+}
+
+.group {
+  display: flex;
+  max-width: 651px;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  max-width: 1240px;
+  width: 100%;
+  gap: 16px;
+  padding: 0;
+  margin: 48px auto 0;
 }
