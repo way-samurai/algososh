@@ -3,3 +3,4 @@ export const pause = (delay: number) => {
     setTimeout(resolve, delay)
   })
 }
+
