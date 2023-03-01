@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import styles from "./fibonacci-page.module.css";
 import { Button } from "../ui/button/button";
 import { Input } from "../ui/input/input";
@@ -46,6 +46,13 @@ export const FibonacciPage: React.FC = () => {
     renderFibArr(inputValue);
     setInputValue("");
   };
+
+  useEffect(() => {
+    return () => {
+      setFibArr([])
+    }
+  }, [])
+  
 
   return (
     <SolutionLayout title="Последовательность Фибоначчи">

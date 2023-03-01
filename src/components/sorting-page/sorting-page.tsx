@@ -46,7 +46,7 @@ export const SortingPage: React.FC = () => {
       for (let j = i + 1; j < length; j++) {
         array[j].state = ElementStates.Changing;
         setRandomArr([...array]);
-        await pause(50);
+        await pause(DELAY_IN_MS);
         if (directionAsc ? array[j].num < array[currentInd].num : array[j].num > array[currentInd].num) {
           currentInd = j;
           array[currentInd].state = ElementStates.Default

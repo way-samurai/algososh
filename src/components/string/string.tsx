@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import styles from "./string.module.css";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
@@ -45,6 +45,13 @@ export const StringComponent: React.FC = () => {
     reverseString(inputValue);
     setInputValue("");
   };
+
+  useEffect(() => {
+    return () => {
+      setReverseArray([])
+    }
+  }, [])
+  
 
   return (
     <SolutionLayout title="Строка">
