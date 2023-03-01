@@ -4,19 +4,66 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { Direction } from "../../types/direction";
-import { array, asc, desc, generateRandomArray, initial, MAXLENGTH, MAXVALUE, MINLENGTH } from "./utils";
+import {
+  array,
+  asc,
+  desc,
+  generateRandomArray,
+  initial,
+  MAXLENGTH,
+  MAXVALUE,
+  MINLENGTH,
+  radioBubbleSort,
+  radioSelectionSort,
+  swap,
+} from "./utils";
 import { Column } from "../ui/column/column";
 import { TRandomArr } from "../../types/sorting-page";
+import { ElementStates } from "../../types/element-states";
+import { pause } from "../../utils";
+import { DELAY_IN_MS } from "../../constants/delays";
 
 export const SortingPage: React.FC = () => {
   const [isLoader, setIsLoader] = useState<string>(initial);
-  const [sortingMethod, setSortingMethod] = useState<string>("selection-sort");
+  const [sortingMethod, setSortingMethod] =
+    useState<string>(radioSelectionSort);
   const [randomArr, setRandomArr] = useState<TRandomArr[]>([]);
 
-  function renderRandomArr (): void {
+  function renderRandomArr(): void {
     const arrColumns = generateRandomArray(MAXLENGTH, MINLENGTH, MAXVALUE);
     setRandomArr(arrColumns);
   }
+
+  const selectionSort = async (
+    array: TRandomArr[],
+    direction: string
+  ): Promise<TRandomArr[]> => {
+    const { length } = array;
+    const directionAsc = direction === Direction.Ascending ? true : false;
+    for (let i = 0; i < length; i++) {
+      let currentInd = i;
+      array[currentInd].state = ElementStates.Changing;
+      for (let j = i + 1; j < length; j++) {
+        array[j].state = ElementStates.Changing;
+        setRandomArr([...array]);
+        await pause(50);
+        if (directionAsc ? array[j].num < array[currentInd].num : array[j].num > array[currentInd].num) {
+          currentInd = j;
+          array[currentInd].state = ElementStates.Default
+        }
+        if (j !== currentInd) {
+          array[j].state = ElementStates.Default
+        }
+        setRandomArr([...array])
+      }
+      swap(array, i, currentInd);
+      array[currentInd].state = ElementStates.Default;
+      array[i].state = ElementStates.Modified;
+      setRandomArr([...array]);
+    }
+    setIsLoader(initial)
+    return array
+  };
 
   const onChangeRadio = (e: ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
@@ -24,16 +71,23 @@ export const SortingPage: React.FC = () => {
   };
 
   const onClickCreateArr = () => {
-    renderRandomArr()
+    renderRandomArr();
   };
 
-  const onClickSortArr = (direction: string) => {
-    
+  const onClickSortArr = async (direction: string): Promise<void> => {
+    setIsLoader(direction);
+    if (sortingMethod === radioSelectionSort) {
+      setRandomArr([... await selectionSort(randomArr, direction)])
+    } else if (sortingMethod === radioBubbleSort) {
+      //setRandomArr(... await )
+    }
+    return;
   };
 
   useEffect(() => {
     renderRandomArr()
-  }, []);
+  }, [])
+  
 
   return (
     <SolutionLayout title="Сортировка массива">
@@ -43,7 +97,7 @@ export const SortingPage: React.FC = () => {
             disabled={isLoader === desc || isLoader === asc}
             label="Выбор"
             name={"sorting-type"}
-            value={"selection-sort"}
+            value={radioSelectionSort}
             defaultChecked
             extraClass="mr-20"
             onChange={() => onChangeRadio}
@@ -52,7 +106,7 @@ export const SortingPage: React.FC = () => {
             disabled={isLoader === desc || isLoader === asc}
             label="Пузырек"
             name={"sorting-type"}
-            value={"bubble-sort"}
+            value={radioBubbleSort}
             onChange={() => onChangeRadio}
           />
         </div>
