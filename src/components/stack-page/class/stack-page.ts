@@ -16,16 +16,18 @@ export class Stack<T> implements IStack<T> {
   };
 
   peak = (): T | null => {
-    const len = this.getSize();
-    if (len > 0) {
-      return this.container[len - 1];
+    const length = this.getSize();
+    if (length> 0) {
+      return this.container[length - 1];
     }
     return null;
   };
 
   getElements = () => {
+    console.log((this.container));
+    
     return this.container;
   };
 
-  getSize = () => this.container.length;
+  getSize = (): number => this.container.length;
 }

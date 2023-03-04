@@ -1,4 +1,4 @@
-import { ElementStates } from './element-states';
+import { ElementStates } from "./element-states";
 
 export interface IStack<T> {
   push: (item: T) => void;
