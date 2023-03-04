@@ -5,16 +5,7 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { Direction } from "../../types/direction";
 import {
-  array,
-  asc,
-  desc,
   generateRandomArray,
-  initial,
-  MAXLENGTH,
-  MAXVALUE,
-  MINLENGTH,
-  radioBubbleSort,
-  radioSelectionSort,
   swap,
 } from "./utils";
 import { Column } from "../ui/column/column";
@@ -22,6 +13,7 @@ import { TRandomArr } from "../../types/sorting-page";
 import { ElementStates } from "../../types/element-states";
 import { pause } from "../../utils";
 import { DELAY_IN_MS, SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { array, asc, desc, initial, MAXLENGTH, MAXVALUE, MINLENGTH, radioBubbleSort, radioSelectionSort } from "./constants";
 
 export const SortingPage: React.FC = () => {
   const [isLoader, setIsLoader] = useState<string>(initial);
