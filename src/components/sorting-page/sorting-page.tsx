@@ -9,7 +9,7 @@ import {
   swap,
 } from "./utils";
 import { Column } from "../ui/column/column";
-import { TRandomArr } from "../../types/sorting-page";
+import { TRandomArr } from "../../types/sorting";
 import { ElementStates } from "../../types/element-states";
 import { pause } from "../../utils";
 import { DELAY_IN_MS, SHORT_DELAY_IN_MS } from "../../constants/delays";

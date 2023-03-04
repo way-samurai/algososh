@@ -1,5 +1,5 @@
 import { ElementStates } from "../../types/element-states";
-import { TRandomArr } from "../../types/sorting-page";
+import { TRandomArr } from "../../types/sorting";
 
 export const generateRandomArray = (
     MAXLENGTH: number,

@@ -24,8 +24,6 @@ export class Stack<T> implements IStack<T> {
   };
 
   getElements = () => {
-    console.log((this.container));
-    
     return this.container;
   };
 
