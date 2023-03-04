@@ -1,6 +1,3 @@
-export const MAXLENGTH: number = 2;
-export const MINVALUE: number = 1;
-
 export const getFibArray = (stringValue: string) => {
   const n = parseInt(stringValue, 10);
   const fibArr = [1, 1];
