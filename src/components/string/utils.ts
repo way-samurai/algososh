@@ -1,7 +1,5 @@
 import { ElementStates } from "../../types/element-states";
 
-export const MAXLENGTH = 11;
-
 export const swap = (
   arr: string[],
   firstIndex: number,
