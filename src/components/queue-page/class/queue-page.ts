@@ -12,30 +12,27 @@ export class Queue<T> implements IQueue<T> {
     this.container = Array(size);
   }
 
-  init = (arr: T[]) => {
-    this.container = [...arr];
-  };
-
   //Все эти условия помогают отслеживать пустые ячейки в начале
   //очереди и перезаписывать освободившиеся ячейки
   enqueue = (item: T) => {
     if (this.length >= this.size) {
       throw new Error("Maximum length exceeded");
-    } else if (
-      (this.tail === this.size || this.head === this.size) &&
-      this.isEmpty()
-    ) {
+    } 
+    if ((this.tail === this.size || this.head === this.size) && this.isEmpty()) {
       this.tail = 0;
       this.head = 0;
-      this.length = 0;
-    } else if (
-      (this.tail === this.size || this.head === this.size) &&
-      !this.isEmpty()
-    ) {
+      this.length = 0
+    }
+    if (this.tail === this.size && !this.isEmpty()) {
       this.tail = 0;
       this.container[this.tail % this.size] = item;
       this.tail++;
       this.length++;
+    // } else if (this.head === this.size && !this.isEmpty()) {
+    //   this.head = 0;
+    //   this.container[this.tail % this.size] = item;
+    //   this.tail++;
+    //   this.length++;
     } else {
       this.container[this.tail % this.size] = item;
       this.tail++;
@@ -48,8 +45,8 @@ export class Queue<T> implements IQueue<T> {
       this.tail = 0;
       this.head = 0;
       this.length = 0;
-      return null;
-    } else if (this.tail === this.size + 1 && !this.isEmpty()) {
+    }
+    if (this.tail === this.size + 1 && !this.isEmpty()) {
       this.tail = 0;
       this.container[this.head % this.size] = null;
       this.head++;

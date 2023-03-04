@@ -20,6 +20,7 @@ export const StackPage: React.FC = () => {
   const [stackArr, setStackArr] = useState<TStackElement[]>([]);
 
   const resetForm = (): void => {
+    setIsProgress({ isAdding: false, isRemoving: false });
     setInputValue("");
     setStackArr([]);
     stack.clear();
@@ -90,7 +91,7 @@ export const StackPage: React.FC = () => {
             type="button"
             text="Удалить"
             onClick={() => handleRemove()}
-            isLoader={isProgress.isAdding}
+            isLoader={isProgress.isRemoving}
             disabled={stackArr.length < 1 || isProgress.isAdding}
             extraClass="mr-6"
           />

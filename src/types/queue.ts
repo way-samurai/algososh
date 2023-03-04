@@ -8,7 +8,6 @@ export type TQueueElement = {
 export type TProcess = { isAdding: boolean; isRemoving: boolean };
 
 export interface IQueue<T> {
-  init: (arr: T[]) => void;
   enqueue: (item: T) => void;
   dequeue: () => void;
   peak: () => T | null;
