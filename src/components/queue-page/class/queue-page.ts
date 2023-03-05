@@ -17,22 +17,12 @@ export class Queue<T> implements IQueue<T> {
   enqueue = (item: T) => {
     if (this.length >= this.size) {
       throw new Error("Maximum length exceeded");
-    } 
-    if ((this.tail === this.size || this.head === this.size) && this.isEmpty()) {
-      this.tail = 0;
-      this.head = 0;
-      this.length = 0
     }
     if (this.tail === this.size && !this.isEmpty()) {
       this.tail = 0;
       this.container[this.tail % this.size] = item;
       this.tail++;
       this.length++;
-    // } else if (this.head === this.size && !this.isEmpty()) {
-    //   this.head = 0;
-    //   this.container[this.tail % this.size] = item;
-    //   this.tail++;
-    //   this.length++;
     } else {
       this.container[this.tail % this.size] = item;
       this.tail++;
@@ -41,19 +31,10 @@ export class Queue<T> implements IQueue<T> {
   };
 
   dequeue = () => {
-    if (this.tail === this.size && this.head === this.size && this.isEmpty()) {
-      this.tail = 0;
-      this.head = 0;
-      this.length = 0;
-    }
     if (this.tail === this.size + 1 && !this.isEmpty()) {
       this.tail = 0;
       this.container[this.head % this.size] = null;
       this.head++;
-      this.length--;
-    } else if (this.head === this.size - 1 && !this.isEmpty()) {
-      this.head = 0;
-      this.container[this.size - 1] = null;
       this.length--;
     } else {
       this.container[this.head % this.size] = null;

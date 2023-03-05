@@ -33,8 +33,8 @@ export const QueuePage: React.FC = () => {
 
   const resetForm = (): void => {
     setInputValue("");
-    setQueueArr([]);
     queue.clear();
+    renderQueueArr();
     setIsProgress({
       isAdding: false,
       isRemoving: false,
@@ -57,11 +57,25 @@ export const QueuePage: React.FC = () => {
     if (queueTailElm) {
       queueTailElm.state = ElementStates.Default;
     }
-    renderQueueArr()
+    renderQueueArr();
     setIsProgress({ ...isProgress, isAdding: false });
   };
 
-  const handleDequeue = async () => {};
+  const handleDequeue = async () => {
+    setIsProgress({ ...isProgress, isRemoving: true });
+    const headItem = queue.peak();
+    if (headItem) {
+      headItem.state = ElementStates.Changing;
+    }
+    renderQueueArr();
+    await pause(SHORT_DELAY_IN_MS);
+    queue.dequeue();
+    renderQueueArr();
+    if (queue.isEmpty()) {
+      queue.clear();
+    }
+    setIsProgress({ ...isProgress, isRemoving: false });
+  };
 
   useEffect(() => {
     renderQueueArr();
@@ -89,6 +103,7 @@ export const QueuePage: React.FC = () => {
             onClick={() => handleEnqueue()}
             isLoader={isProgress.isAdding}
             disabled={
+              isProgress.isAdding ||
               isProgress.isRemoving ||
               queue.getLength() === MAXSIZE ||
               !inputValue
@@ -98,9 +113,11 @@ export const QueuePage: React.FC = () => {
           <Button
             type="button"
             text="Удалить"
-            //onClick={() => handleRemove()}
+            onClick={() => handleDequeue()}
             isLoader={isProgress.isRemoving}
-            disabled={queue.isEmpty() || isProgress.isRemoving}
+            disabled={
+              queue.isEmpty() || isProgress.isRemoving || isProgress.isAdding
+            }
             extraClass="mr-6"
           />
         </div>
@@ -124,7 +141,9 @@ export const QueuePage: React.FC = () => {
                 queue.getTail() === index + 1 && !queue.isEmpty() ? "tail" : ""
               }
               head={
-                queue.getHead() === index && queueArr[queue.getHead()]
+                queue.getHead() === index &&
+                queueArr[queue.getHead()] &&
+                !queue.isEmpty()
                   ? "head"
                   : ""
               }
