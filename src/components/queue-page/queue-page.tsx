@@ -1,5 +1,6 @@
 import React, { FormEvent, useState, useEffect } from "react";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { useForm } from "../../hooks/useForm";
 import { ElementStates } from "../../types/element-states";
 import { TProcess, TQueueElement } from "../../types/queue";
 import { pause } from "../../utils";
@@ -11,7 +12,7 @@ import { MAXLENGTH, MAXSIZE, queue } from "./constants";
 import styles from "./queue-page.module.css";
 
 export const QueuePage: React.FC = () => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const {inputValue, setInputValue} = useForm('');
   const [isProgress, setIsProgress] = useState<TProcess>({
     isAdding: false,
     isRemoving: false,

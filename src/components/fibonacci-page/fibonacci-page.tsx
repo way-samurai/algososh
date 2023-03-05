@@ -3,21 +3,22 @@ import styles from "./fibonacci-page.module.css";
 import { Button } from "../ui/button/button";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
-import { getFibArray } from "./utils";
+import { getFibonacciNumbers} from "./utils";
 import { MAXLENGTH, MINVALUE } from "./constants"
 import { Circle } from "../ui/circle/circle";
 import { pause } from "../../utils";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { useForm } from "../../hooks/useForm";
 
 export const FibonacciPage: React.FC = () => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const {inputValue, setInputValue} = useForm('');
   const [isLoader, setIsLoader] = useState<boolean>(false);
   const [fibArr, setFibArr] = useState<number[]>([]);
 
   const buttonValidation = MINVALUE <= parseInt(inputValue, 10) ? false : true;
 
-  const renderFibArr = async (inputValue: string) => {
-    const fibArr = getFibArray(inputValue);
+  const renderFibArr = async (inputValues: string) => {
+    const fibArr = getFibonacciNumbers(inputValues);
     const renderFibArr = [];
     for (let i = 0; i <= fibArr.length - 1; i++) {
       await pause(SHORT_DELAY_IN_MS);

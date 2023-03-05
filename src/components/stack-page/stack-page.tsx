@@ -10,9 +10,10 @@ import { ElementStates } from "../../types/element-states";
 import { TStackElement } from "../../types/stack";
 import { pause } from "../../utils";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { useForm } from "../../hooks/useForm";
 
 export const StackPage: React.FC = () => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const {inputValue, setInputValue} = useForm('');
   const [isProgress, setIsProgress] = useState<TProcess>({
     isAdding: false,
     isRemoving: false,

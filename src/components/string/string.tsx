@@ -8,9 +8,10 @@ import { stateCircle, swap } from "./utils";
 import { DELAY_IN_MS } from "../../constants/delays";
 import { pause } from "../../utils";
 import { MAXLENGTH } from "./constants";
+import { useForm } from "../../hooks/useForm";
 
 export const StringComponent: React.FC = () => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const {inputValue, setInputValue} = useForm('');
   const [isLoader, setIsLoader] = useState<boolean>(false);
   const [reverseArray, setReverseArray] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
