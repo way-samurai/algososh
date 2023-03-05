@@ -4,16 +4,23 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { Direction } from "../../types/direction";
-import {
-  generateRandomArray,
-  swap,
-} from "./utils";
+import { generateRandomArray, swap } from "./utils";
 import { Column } from "../ui/column/column";
 import { TRandomArr } from "../../types/sorting";
 import { ElementStates } from "../../types/element-states";
 import { pause } from "../../utils";
 import { DELAY_IN_MS, SHORT_DELAY_IN_MS } from "../../constants/delays";
-import { array, asc, desc, initial, MAXLENGTH, MAXVALUE, MINLENGTH, radioBubbleSort, radioSelectionSort } from "./constants";
+import {
+  array,
+  asc,
+  desc,
+  initial,
+  MAXLENGTH,
+  MAXVALUE,
+  MINLENGTH,
+  radioBubbleSort,
+  radioSelectionSort,
+} from "./constants";
 
 export const SortingPage: React.FC = () => {
   const [isLoader, setIsLoader] = useState<string>(initial);
@@ -109,12 +116,12 @@ export const SortingPage: React.FC = () => {
 
   useEffect(() => {
     renderRandomArr();
-    return () => setRandomArr([])
+    return () => setRandomArr([]);
   }, []);
 
   return (
     <SolutionLayout title="Сортировка массива">
-      <form className={styles.form}  onSubmit={(e) => e.preventDefault()}>
+      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <div className={styles.radioInputs}>
           <RadioInput
             disabled={isLoader === desc || isLoader === asc}
@@ -160,13 +167,11 @@ export const SortingPage: React.FC = () => {
       <ul className={styles.list}>
         {randomArr &&
           randomArr.length > 0 &&
-          randomArr.map(
-            (element: TRandomArr, index: number, state: TRandomArr[]) => {
-              return (
-                <Column key={index} index={element.num} state={element.state} />
-              );
-            }
-          )}
+          randomArr.map((element, index) => {
+            return (
+              <Column key={index} index={element.num} state={element.state} />
+            );
+          })}
       </ul>
     </SolutionLayout>
   );

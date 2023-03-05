@@ -67,7 +67,7 @@ export const FibonacciPage: React.FC = () => {
           maxLength={MAXLENGTH}
           max={MAXVALUE}
           value={inputValue}
-          type='num'
+          type='number'
           extraClass="mr-6"
         />
         <Button
@@ -79,7 +79,7 @@ export const FibonacciPage: React.FC = () => {
       </form>
       <ul className={styles.list}>
         {fibArr &&
-          fibArr.map((item: number, index: number) => {
+          fibArr.map((item, index) => {
             return <Circle key={index} letter={`${item}`} index={index} />;
           })}
       </ul>

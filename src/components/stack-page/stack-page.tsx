@@ -110,7 +110,7 @@ export const StackPage: React.FC = () => {
       </form>
       <ul className={styles.list}>
         {stackArr.length > 0 &&
-          stackArr.map((item, index: number) => {
+          stackArr.map((item, index) => {
             return (
               <Circle
                 key={index}

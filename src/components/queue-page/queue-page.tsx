@@ -12,7 +12,7 @@ import { MAXLENGTH, MAXSIZE, queue } from "./constants";
 import styles from "./queue-page.module.css";
 
 export const QueuePage: React.FC = () => {
-  const {inputValue, setInputValue} = useForm('');
+  const { inputValue, setInputValue } = useForm("");
   const [isProgress, setIsProgress] = useState<TProcess>({
     isAdding: false,
     isRemoving: false,
@@ -87,7 +87,7 @@ export const QueuePage: React.FC = () => {
 
   return (
     <SolutionLayout title="Очередь">
-      <form className={styles.form}  onSubmit={(e) => e.preventDefault()}>
+      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <div className={styles.input_group}>
           <Input
             isLimitText
@@ -132,25 +132,30 @@ export const QueuePage: React.FC = () => {
         />
       </form>
       <ul className={styles.list}>
-        {queueArr.map((item: any, index: number) => {
-          return (
-            <Circle
-              key={index}
-              letter={item.value || ""}
-              index={index}
-              tail={
-                queue.getTail() === index + 1 && !queue.isEmpty() ? "tail" : ""
-              }
-              head={
-                queue.getHead() === index &&
-                queueArr[queue.getHead()] &&
-                !queue.isEmpty()
-                  ? "head"
-                  : ""
-              }
-              state={item.state}
-            />
-          );
+        {queueArr.map((item, index) => {
+          if (item !== null) {
+            return (
+              <Circle
+                key={index}
+                letter={item.value || ""}
+                index={index}
+                tail={
+                  queue.getTail() === index + 1 && !queue.isEmpty()
+                    ? "tail"
+                    : ""
+                }
+                head={
+                  queue.getHead() === index &&
+                  queueArr[queue.getHead()] &&
+                  !queue.isEmpty()
+                    ? "head"
+                    : ""
+                }
+                state={item.state}
+              />
+            );
+          }
+          return null
         })}
       </ul>
     </SolutionLayout>

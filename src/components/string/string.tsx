@@ -75,7 +75,7 @@ export const StringComponent: React.FC = () => {
         />
       </form>
       <ul className={styles.list}>
-        {reverseArray.map((letter: string, index: number) => {
+        {reverseArray.map((letter, index) => {
           return (
             <Circle
               key={index}
