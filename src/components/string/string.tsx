@@ -36,6 +36,7 @@ export const StringComponent: React.FC = () => {
   };
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {
+    e.preventDefault();
     const string = e.currentTarget.value;
     setInputValue(string);
   };
@@ -57,7 +58,7 @@ export const StringComponent: React.FC = () => {
 
   return (
     <SolutionLayout title="Строка">
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <Input
           onChange={onChange}
           disabled={isLoader}

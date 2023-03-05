@@ -36,6 +36,7 @@ export const ListPage: React.FC = () => {
   const [, update] = React.useState({});
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
     setInputValues({ ...inputValues, [event.target.name]: event.target.value });
   };
 

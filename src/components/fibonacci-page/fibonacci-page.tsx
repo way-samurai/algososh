@@ -29,6 +29,7 @@ export const FibonacciPage: React.FC = () => {
   };
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {
+    e.preventDefault();
     let string = e.currentTarget.value.replace(/[^0-9]/g, "");
     const parseString = parseInt(string, 10);
     if (parseString > 19) {
@@ -58,7 +59,7 @@ export const FibonacciPage: React.FC = () => {
 
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <Input
           onChange={onChange}
           disabled={isLoader}
