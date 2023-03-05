@@ -36,6 +36,10 @@ export class Queue<T> implements IQueue<T> {
       this.container[this.head % this.size] = null;
       this.head++;
       this.length--;
+    } else if (this.head === this.size - 1 && !this.isEmpty()) {
+      this.head = 0;
+      this.container[this.size - 1] = null;
+      this.length--;
     } else {
       this.container[this.head % this.size] = null;
       this.head++;
