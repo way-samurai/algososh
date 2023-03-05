@@ -101,7 +101,7 @@ export const QueuePage: React.FC = () => {
           <Button
             type="button"
             text="Добавить"
-            onClick={() => handleEnqueue()}
+            onClick={handleEnqueue}
             isLoader={isProgress.isAdding}
             disabled={
               isProgress.isAdding ||
@@ -114,7 +114,7 @@ export const QueuePage: React.FC = () => {
           <Button
             type="button"
             text="Удалить"
-            onClick={() => handleDequeue()}
+            onClick={handleDequeue}
             isLoader={isProgress.isRemoving}
             disabled={
               queue.isEmpty() || isProgress.isRemoving || isProgress.isAdding
@@ -125,7 +125,7 @@ export const QueuePage: React.FC = () => {
         <Button
           type="button"
           text="Очистить"
-          onClick={() => resetForm()}
+          onClick={resetForm}
           disabled={
             isProgress.isAdding || isProgress.isRemoving || queue.isEmpty()
           }

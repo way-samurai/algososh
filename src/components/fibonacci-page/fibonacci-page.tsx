@@ -4,7 +4,7 @@ import { Button } from "../ui/button/button";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { getFibonacciNumbers} from "./utils";
-import { MAXLENGTH, MINVALUE } from "./constants"
+import { MAXLENGTH, MAXVALUE, MINVALUE } from "./constants"
 import { Circle } from "../ui/circle/circle";
 import { pause } from "../../utils";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
@@ -65,7 +65,9 @@ export const FibonacciPage: React.FC = () => {
           disabled={isLoader}
           isLimitText={true}
           maxLength={MAXLENGTH}
+          max={MAXVALUE}
           value={inputValue}
+          type='num'
           extraClass="mr-6"
         />
         <Button
