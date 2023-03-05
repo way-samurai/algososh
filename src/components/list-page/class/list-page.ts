@@ -1,29 +1,29 @@
 import { ElementStates } from "../../../types/element-states";
-import { ICircle } from "../../../types/list";
+import { ILinkedList } from "../../../types/list";
 
-export class Node {
-  element: ICircle;
-  next: Node | null;
+export class Node<T> {
+  element: T;
+  next: Node<T> | null;
 
-  constructor(item: ICircle, next: Node | null = null) {
+  constructor(item: T, next: Node<T> | null = null) {
     this.element = item;
     this.next = next;
   }
 }
 
-export class LinkedList {
-  array: Node[] = [];
-  head: Node | null = null;
-  tail: Node | null = null;
+export class LinkedList<T> implements ILinkedList<T> {
+  array: Node<T | any>[] = [];
+  head: Node<T> | null = null;
+  tail: Node<T> | null = null;
 
-  constructor(items: ICircle[]) {
+  constructor(items: T[]) {
     items.forEach((item) => {
       this.append(item);
     });
   }
 
-  append(item: ICircle) {
-    const node = new Node(item);
+  append(item: T) {
+    const node = new Node<T>(item);
     this.array.push(node);
     if (!this.tail) {
       this.head = node;
@@ -34,7 +34,7 @@ export class LinkedList {
     }
   }
 
-  prepend(item: ICircle) {
+  prepend(item: T) {
     const node = new Node(item);
     this.array.unshift(node);
     if (!this.head) {
@@ -46,7 +46,7 @@ export class LinkedList {
     }
   }
 
-  addByIndex(index: number, item: ICircle) {
+  addByIndex(index: number, item: T) {
     const node = new Node(item);
     if (this.array[index] === this.head) {
       node.next = this.head;
@@ -108,7 +108,7 @@ export class LinkedList {
   }
 
   changeValue(index: number, value: string = "") {
-    this.array[index].element.value = value;
+      this.array[index].element.value = value;
   }
 
   getData() {
