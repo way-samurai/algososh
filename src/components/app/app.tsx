@@ -12,7 +12,7 @@ import "./app.module.css";
 function App() {
   return (
     <div className="app">
-      <BrowserRouter>
+      <BrowserRouter  basename={window.location.pathname || ''}>
         <Switch>
           <Route path="/" exact>
             <MainPage />
