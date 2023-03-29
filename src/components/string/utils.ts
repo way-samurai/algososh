@@ -1,4 +1,6 @@
+import { DELAY_IN_MS } from "../../constants/delays";
 import { ElementStates } from "../../types/element-states";
+import { pause } from "../../utils";
 
 export const swap = (
   arr: string[],
@@ -26,4 +28,13 @@ export const stateCircle = (
   return ElementStates.Default;
 };
 
+export function reverseString (string: string) {
+	const arrayOfLetters = string.split('');
+	let end = arrayOfLetters.length;
 
+	for (let i = 0; i < Math.floor(end / 2); i++) {
+		swap(arrayOfLetters, i, end - 1);
+	}
+
+	return arrayOfLetters;
+}
