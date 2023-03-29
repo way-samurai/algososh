@@ -1,6 +1,4 @@
-import { DELAY_IN_MS } from "../../constants/delays";
 import { ElementStates } from "../../types/element-states";
-import { pause } from "../../utils";
 
 export const swap = (
   arr: string[],
