@@ -1,37 +1,40 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import styles from "./string.module.css";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
-import { stateCircle, swap } from "./utils";
+import { getCircleState, getReversingStringSteps } from "./utils";
 import { DELAY_IN_MS } from "../../constants/delays";
-import { pause } from "../../utils";
 import { MAXLENGTH } from "./constants";
 import { useForm } from "../../hooks/useForm";
 
 export const StringComponent: React.FC = () => {
-  const {inputValue, setInputValue} = useForm('');
+  const { inputValue, setInputValue } = useForm("");
   const [isLoader, setIsLoader] = useState<boolean>(false);
-  const [reverseArray, setReverseArray] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [reversingAlgoSteps, setReversingAlgoSteps] = useState<string[][]>([]);
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  const intervalObj = useRef<NodeJS.Timeout>();
 
-  const reverseString = async (string: string) => {
-    const arrayOfLetters = string.split("");
-    const end = arrayOfLetters.length;
-
-    setCurrentIndex(0);
+  const startReversingStringAlgoritm = () => {
     setIsLoader(true);
-    setReverseArray([...arrayOfLetters]);
-    await pause(DELAY_IN_MS);
+    const steps = getReversingStringSteps(inputValue);
+    setReversingAlgoSteps(steps);
 
-    for (let i = 0; i < Math.floor(end / 2); i++) {
-      swap(arrayOfLetters, i, end - 1);
-      setCurrentIndex((i) => i + 1);
-      setReverseArray([...arrayOfLetters]);
-      await pause(DELAY_IN_MS);
+    setCurrentStep(0);
+
+    if (steps.length > 1) {
+      intervalObj.current = setInterval(() => {
+        setCurrentStep((currentStep) => {
+          const nextStep = currentStep + 1;
+          if (nextStep >= steps.length - 1 && intervalObj.current) {
+            clearInterval(intervalObj.current);
+          }
+          return nextStep;
+        });
+      }, DELAY_IN_MS);
     }
-    setCurrentIndex((i) => i + 1);
+
     setIsLoader(false);
   };
 
@@ -45,20 +48,25 @@ export const StringComponent: React.FC = () => {
     e: FormEvent<HTMLFormElement> | FormEvent<HTMLButtonElement>
   ): void => {
     e.preventDefault();
-    reverseString(inputValue);
+    startReversingStringAlgoritm();
     setInputValue("");
   };
 
   useEffect(() => {
     return () => {
-      setReverseArray([])
-    }
-  }, [])
-  
+      setReversingAlgoSteps([]);
+    };
+  }, []);
 
   return (
     <SolutionLayout title="Строка">
-      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+      <form
+        className={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          startReversingStringAlgoritm();
+        }}
+      >
         <Input
           onChange={onChange}
           disabled={isLoader}
@@ -75,16 +83,20 @@ export const StringComponent: React.FC = () => {
         />
       </form>
       <ul className={styles.list}>
-        {reverseArray.map((letter, index) => {
-          return (
+        {reversingAlgoSteps.length > 0 &&
+          reversingAlgoSteps[currentStep].map((letter, index) => (
             <Circle
               key={index}
               letter={letter}
-              index={index + 1}
-              state={stateCircle(currentIndex, index, reverseArray)}
+              index={index}
+              state={getCircleState(
+                index,
+                reversingAlgoSteps[currentStep].length - 1,
+                currentStep,
+                currentStep === reversingAlgoSteps.length - 1
+              )}
             />
-          );
-        })}
+          ))}
       </ul>
     </SolutionLayout>
   );

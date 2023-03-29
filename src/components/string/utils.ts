@@ -1,38 +1,49 @@
 import { ElementStates } from "../../types/element-states";
 
-export const swap = (
-  arr: string[],
-  firstIndex: number,
-  secondIndex: number
-): void => {
-  [arr[firstIndex], arr[secondIndex - firstIndex]] = [
-    arr[secondIndex - firstIndex],
-    arr[firstIndex],
-  ];
-};
-
-export const stateCircle = (
+export function getCircleState(
   index: number,
-  currentIndex: number,
-  arr: Array<string | number>
-) => {
-  let arrLength = arr.length - 1;
-  if (currentIndex < index || currentIndex > arrLength - index) {
+  maxIndex: number,
+  currentStep: number,
+  isFinished: boolean
+): ElementStates {
+  if (index < currentStep || index > maxIndex - currentStep || isFinished) {
     return ElementStates.Modified;
   }
-  if (currentIndex === index || currentIndex === arrLength - index) {
+  if (index === currentStep || index === maxIndex - currentStep) {
     return ElementStates.Changing;
   }
   return ElementStates.Default;
+}
+
+export const swap = (
+  arr: string[],
+  leftIndex: number,
+  rightIndex: number
+): void => {
+  [arr[leftIndex], arr[rightIndex]] = [arr[rightIndex], arr[leftIndex]];
 };
 
-export function reverseString (string: string) {
-	const arrayOfLetters = string.split('');
-	let end = arrayOfLetters.length;
+//возвращает массив с переворот по шагам
+export function getReversingStringSteps(inputString: string): string[][] {
+  const inputStringLetters = inputString.split("");
+  const reversingSteps: string[][] = [[...inputStringLetters]];
+  const end = inputStringLetters.length;
 
-	for (let i = 0; i < Math.floor(end / 2); i++) {
-		swap(arrayOfLetters, i, end - 1);
-	}
+  if (inputString.length <= 1) {
+    return [[...inputStringLetters]];
+  }
 
-	return arrayOfLetters;
+  const maxAlgoCurr = Math.floor(end / 2);
+
+  //метод двух указателей
+  for (let leftItemCurr = 0; leftItemCurr < maxAlgoCurr; ++leftItemCurr) {
+    const rightItemCurr = inputString.length - 1 - leftItemCurr;
+
+    //меняем местами элементы
+    swap(inputStringLetters, leftItemCurr, rightItemCurr);
+
+    //добавляем в массив с переворотными шагами состояние на шаге
+    reversingSteps.push([...inputStringLetters]);
+  }
+  return reversingSteps;
 }
