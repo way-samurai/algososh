@@ -38,20 +38,16 @@ describe("Тестирование компонента Button", () => {
     expect(button).toMatchSnapshot();
   });
 
-  // it("Нажатие на кнопку вызывает корректный alert", () => {
-  //   window.alert = jest.fn;
-  //   render(<Button title="Проверка срабатывания по клику кнопки" />);
-  //   const title = screen.getByText("Проверка срабатывания по клику кнопки");
-  //   fireEvent.click(title);
-  //   expect(window.alert).toHaveBeenCalledWith(
-  //     "Проверка срабатывания по клику кнопки"
-  //   );
-  // });
+  it("Нажатие на кнопку вызывает корректный alert", () => {
+    const alertText = "Успешный клик!";
+    window.alert = jest.fn();
+
+    render(<Button title={alertText} onClick={() => alert(alertText)} />);
+
+    const button = screen.getByTitle("Успешный клик!");
+    fireEvent.click(button);
+
+    expect(window.alert).toHaveBeenCalledWith(alertText);
+  });
 });
 
-// Проверяем при помощи снэпшотов корректную отрисовку:
-// кнопки с текстом;
-// кнопки без текста;
-// заблокированной кнопки;
-// кнопки с индикацией загрузки.
-// Проверяем корректность вызова колбека при клике на кнопку.
