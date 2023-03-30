@@ -44,7 +44,7 @@ describe("Тестирование компонента Button", () => {
 
     render(<Button title={alertText} onClick={() => alert(alertText)} />);
 
-    const button = screen.getByTitle("Успешный клик!");
+    const button = screen.getByTitle(alertText);
     fireEvent.click(button);
 
     expect(window.alert).toHaveBeenCalledWith(alertText);
