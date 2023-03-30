@@ -55,6 +55,7 @@ export const StringComponent: React.FC = () => {
   useEffect(() => {
     return () => {
       setReversingAlgoSteps([]);
+      clearInterval(intervalObj.current);
     };
   }, []);
 
