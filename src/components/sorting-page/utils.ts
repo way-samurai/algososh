@@ -12,9 +12,9 @@ export const generateRandomArray = (
   const arr = [...new Array(arrLength)].map(() =>
     Math.round(Math.random() * MAXVALUE)
   );
-  const arrColumns = arr.map((num) => ({ num, state: ElementStates.Default }));
+  const result = arr.map((num) => ({ num, state: ElementStates.Default }));
 
-  return arrColumns;
+  return result;
 };
 
 export const swap = (
