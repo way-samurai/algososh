@@ -19,12 +19,12 @@ export const generateRandomArray = (
 
 export const swap = (
   arr: TRandomArr[],
-  firstIndex: number,
-  secondIndex: number
+  leftIndex: number,
+  rightIndex: number
 ): void => {
-  const temp = arr[firstIndex];
-  arr[firstIndex] = arr[secondIndex];
-  arr[secondIndex] = temp;
+  const temp = arr[leftIndex];
+  arr[leftIndex] = arr[rightIndex];
+  arr[rightIndex] = temp;
 };
 
 // export const selectionSort = (
