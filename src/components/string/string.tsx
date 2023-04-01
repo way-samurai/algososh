@@ -14,7 +14,7 @@ export const StringComponent: React.FC = () => {
   const [isLoader, setIsLoader] = useState<boolean>(false);
   const [reversingAlgoSteps, setReversingAlgoSteps] = useState<string[][]>([]);
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const intervalObj = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<NodeJS.Timeout>();
 
   const startReversingStringAlgoritm = () => {
     setIsLoader(true);
@@ -24,11 +24,11 @@ export const StringComponent: React.FC = () => {
     setCurrentStep(0);
 
     if (steps.length > 1) {
-      intervalObj.current = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         setCurrentStep((currentStep) => {
           const nextStep = currentStep + 1;
-          if (nextStep >= steps.length - 1 && intervalObj.current) {
-            clearInterval(intervalObj.current);
+          if (nextStep >= steps.length - 1 && intervalRef.current) {
+            clearInterval(intervalRef.current);
           }
           return nextStep;
         });
@@ -55,7 +55,7 @@ export const StringComponent: React.FC = () => {
   useEffect(() => {
     return () => {
       setReversingAlgoSteps([]);
-      clearInterval(intervalObj.current);
+      clearInterval(intervalRef.current);
     };
   }, []);
 

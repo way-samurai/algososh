@@ -1,3 +1,4 @@
+import { log } from "console";
 import { ElementStates } from "../../types/element-states";
 
 export function getCircleState(
@@ -26,6 +27,7 @@ export const swap = (
 //возвращает массив с переворот по шагам
 export function getReversingStringSteps(inputString: string): string[][] {
   const inputStringLetters = inputString.split("");
+  console.log("1 inputStringLetters", inputStringLetters)
   const reversingSteps: string[][] = [[...inputStringLetters]];
   const end = inputStringLetters.length;
 
@@ -41,8 +43,10 @@ export function getReversingStringSteps(inputString: string): string[][] {
 
     //меняем местами элементы
     swap(inputStringLetters, leftItemCurr, rightItemCurr);
+    console.log("2 inputStringLetters", inputStringLetters)
 
     //добавляем в массив с переворотными шагами состояние на шаге
+    console.log(leftItemCurr, inputStringLetters, reversingSteps)
     reversingSteps.push([...inputStringLetters]);
   }
   return reversingSteps;
