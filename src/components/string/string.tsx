@@ -15,27 +15,27 @@ export const StringComponent: React.FC = () => {
   const [reversingAlgoSteps, setReversingAlgoSteps] = useState<string[][]>([]);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const intervalRef = useRef<NodeJS.Timeout>();
-
+  
   const startReversingStringAlgoritm = () => {
     setIsLoader(true);
     const steps = getReversingStringSteps(inputValue);
     setReversingAlgoSteps(steps);
 
-    setCurrentStep(0);
 
+    setCurrentStep(0);
     if (steps.length > 1) {
       intervalRef.current = setInterval(() => {
+        setIsLoader(true);
         setCurrentStep((currentStep) => {
           const nextStep = currentStep + 1;
           if (nextStep >= steps.length - 1 && intervalRef.current) {
             clearInterval(intervalRef.current);
+            setIsLoader(false);
           }
           return nextStep;
         });
-      }, DELAY_IN_MS);
+      }, DELAY_IN_MS); 
     }
-
-    setIsLoader(false);
   };
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {

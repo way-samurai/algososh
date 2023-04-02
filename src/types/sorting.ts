@@ -1,6 +1,6 @@
-import { ElementStates } from "./element-states";
-
-export type TRandomArr = {
-  num: number;
-  state: ElementStates;
+export type Step = {
+  currantArray: number[];
+  sortedIndsArray: number[];
+  leftIndex?: number;
+  rightIndex?: number;
 };
