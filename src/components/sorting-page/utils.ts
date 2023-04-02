@@ -77,7 +77,7 @@ export const getSelectionSortSteps = (
   return resultSteps;
 };
 
-//Закончить рефакторинг
+
 export const getBubbleSortSteps = (
   array: number[],
   directionAsc: boolean
