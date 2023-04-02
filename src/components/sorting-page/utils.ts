@@ -44,7 +44,11 @@ export const swap = (
 export const getSelectionSortSteps = (
   array: number[],
   directionAsc: boolean
-): Step[] => {
+): Step[] | any => {
+  if (array.length === null) {
+    return { currantArray: [], sortedIndsArray: [] };
+  }
+
   const { length } = array;
   const resultSteps: Step[] = [];
 
@@ -76,7 +80,6 @@ export const getSelectionSortSteps = (
   });
   return resultSteps;
 };
-
 
 export const getBubbleSortSteps = (
   array: number[],
@@ -112,4 +115,3 @@ export const getBubbleSortSteps = (
   });
   return resultSteps;
 };
-
