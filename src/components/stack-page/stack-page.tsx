@@ -67,7 +67,7 @@ export const StackPage: React.FC = () => {
 
   return (
     <SolutionLayout title="Стек">
-      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+      <form className={styles.form} onSubmit={(e) => e.preventDefault()} data-cy="form">
         <div className={styles.input_group}>
           <Input
             isLimitText
@@ -77,6 +77,7 @@ export const StackPage: React.FC = () => {
             placeholder="Введите текст"
             disabled={stack.getSize() >= MAXSIZE}
             extraClass="mr-6"
+            data-cy="input"
           />
           <Button
             type="button"
@@ -87,6 +88,7 @@ export const StackPage: React.FC = () => {
               isProgress.isRemoving || stack.getSize() >= MAXSIZE || !inputValue
             }
             extraClass="mr-6"
+            data-cy="addButton"
           />
           <Button
             type="button"
@@ -95,11 +97,13 @@ export const StackPage: React.FC = () => {
             isLoader={isProgress.isRemoving}
             disabled={stackArr.length < 1 || isProgress.isAdding}
             extraClass="mr-6"
+            data-cy="deleteButton"
           />
         </div>
         <Button
           type="button"
           text="Очистить"
+          data-cy="clearButton"
           onClick={() => resetForm()}
           disabled={
             isProgress.isAdding ||
