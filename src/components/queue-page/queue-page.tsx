@@ -87,7 +87,11 @@ export const QueuePage: React.FC = () => {
 
   return (
     <SolutionLayout title="Очередь">
-      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+      <form
+        className={styles.form}
+        onSubmit={(e) => e.preventDefault()}
+        data-cy="form"
+      >
         <div className={styles.input_group}>
           <Input
             isLimitText
@@ -97,8 +101,10 @@ export const QueuePage: React.FC = () => {
             placeholder="Введите текст"
             disabled={queue.getLength() >= MAXSIZE}
             extraClass="mr-6"
+            data-cy="input"
           />
           <Button
+            data-cy="addButton"
             type="button"
             text="Добавить"
             onClick={handleEnqueue}
@@ -112,6 +118,7 @@ export const QueuePage: React.FC = () => {
             extraClass="mr-6"
           />
           <Button
+            data-cy="deleteButton"
             type="button"
             text="Удалить"
             onClick={handleDequeue}
@@ -123,6 +130,7 @@ export const QueuePage: React.FC = () => {
           />
         </div>
         <Button
+          data-cy="clearButton"
           type="button"
           text="Очистить"
           onClick={resetForm}
@@ -155,7 +163,7 @@ export const QueuePage: React.FC = () => {
               />
             );
           }
-          return null
+          return null;
         })}
       </ul>
     </SolutionLayout>

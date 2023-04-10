@@ -209,7 +209,7 @@ export const ListPage: React.FC = () => {
 
   return (
     <SolutionLayout title="Связный список">
-      <div className={styles.form}>
+      <form className={styles.form} data-cy="form">
         <Input
           isLimitText={true}
           maxLength={4}
@@ -218,30 +218,35 @@ export const ListPage: React.FC = () => {
           name="value"
           disabled={disabled}
           value={inputValues.value}
+          data-cy="inputSymbols"
         />
         <Button
           text={"Добавить в head"}
           onClick={() => addHead(inputValues.value)}
           disabled={disabled ? true : !inputValues.value}
           isLoader={addLoader.head}
+          data-cy="addToHeadButton"
         />
         <Button
           text={"Добавить в tail"}
           onClick={() => addTail(inputValues.value)}
           disabled={disabled ? true : !inputValues.value}
           isLoader={addLoader.tail}
+          data-cy="addToTailButton"
         />
         <Button
           text={"Удалить из head"}
           onClick={deleteHead}
           disabled={disabled ? true : data.array.length <= 0}
           isLoader={deleteLoader.head}
+          data-cy="deleteOfHeadButton"
         />
         <Button
           text={"Удалить из tail"}
           onClick={deleteTail}
           disabled={disabled ? true : data.array.length <= 0}
           isLoader={deleteLoader.tail}
+          data-cy="deleteOfTailButton"
         />
         <Input
           placeholder={"Введите индекс"}
@@ -252,9 +257,11 @@ export const ListPage: React.FC = () => {
           max={data.array.length - 1}
           disabled={disabled}
           value={inputValues.index}
+          data-cy="inputIndex"
         />
         <Button
           text={"Добавить по индексу"}
+          data-cy="addToIndexButton"
           extraClass={`${styles.button}`}
           onClick={() =>
             addByIndex(Number(inputValues.index), inputValues.value)
@@ -272,6 +279,7 @@ export const ListPage: React.FC = () => {
         />
         <Button
           text={"Удалить по индексу"}
+          data-cy="deleteOfIndexButton"
           extraClass={`${styles.button}`}
           onClick={() => deleteByIndex(Number(inputValues.index))}
           disabled={
@@ -284,7 +292,7 @@ export const ListPage: React.FC = () => {
           }
           isLoader={deleteLoader.index}
         />
-      </div>
+      </form>
       <div className={styles.circlesContainer}>
         {data.array &&
           data.array.map((item, index) => {
