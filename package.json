@@ -62,7 +62,7 @@
     "redux-mock-store": "^1.5.4"
   },
   "main": "index.js",
-  "repository": "https://github.com/EukleidesRUS/algososh.git",
+  "repository": "https://github.com/way-samurai/algososh.git",
   "author": "Alexander Goncharov <GoncharovNVCHK@yandex.ru>",
   "license": "MIT"
 }
